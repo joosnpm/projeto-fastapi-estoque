@@ -3,7 +3,7 @@ from .schemas import ProdutoCreate
 
 class ProdutoRepository:
     
-    # Query com JOIN para buscar nomes do tipo e fornecedor
+    # Query com join para buscar nomes do tipo e fornecedor
     QUERY_GET_ALL = """
         SELECT 
             p.id, p.name, p.price, p.company_id,
@@ -14,7 +14,7 @@ class ProdutoRepository:
         INNER JOIN supplier s ON p.supplier_id = s.id
     """
     
-    # Query com JOIN para buscar um produto
+    # Query com join para buscar um produto
     QUERY_GET_BY_ID = """
         SELECT 
             p.id, p.name, p.price, p.company_id,
@@ -29,7 +29,7 @@ class ProdutoRepository:
     # Query simples para criar
     QUERY_CREATE = "INSERT INTO produto (name, description, price, type_id, supplier_id, company_id) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id, name, description, price, type_id, supplier_id, company_id;"
 
-    # Query para buscar produtos de uma empresa
+    # Query para buscar produtos da empresa
     QUERY_GET_BY_COMPANY = """
         SELECT 
             p.id, p.name, p.price, p.company_id,
@@ -42,7 +42,6 @@ class ProdutoRepository:
     """
 
     def _map_row_to_out(self, row):
-        # Mapeia o resultado do banco (com 6 colunas) para o schema ProdutoOut
         return {"id": row[0], "name": row[1], "price": row[2], "company_id": row[3], "type_name": row[4], "supplier_name": row[5]}
 
     def get_all(self):
@@ -63,12 +62,12 @@ class ProdutoRepository:
         query = self.QUERY_GET_BY_COMPANY % company_id
         results_db = db.execute(query)
         return [self._map_row_to_out(row) for row in results_db]
-
+#
     def save(self, p: ProdutoCreate):
         db = DataBase()
         query = self.QUERY_CREATE % (
             f"'{p.name}'", f"'{p.description}'", p.price, p.type_id, p.supplier_id, p.company_id
         )
         row = db.commit(query)
-        # Retorna o produto simples, sem os JOINS
+        # Retorna o produto sem os joins
         return {"id": row[0], "name": row[1], "description": row[2], "price": row[3], "type_id": row[4], "supplier_id": row[5], "company_id": row[6]}

@@ -11,6 +11,6 @@ class SupplierCreate(SupplierBase):
 
 class Supplier(SupplierBase):
     id: int
-
+#
     class Config:
         from_attributes = True

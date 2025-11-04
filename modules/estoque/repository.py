@@ -2,8 +2,8 @@ from core.db import DataBase
 from .schemas import EstoqueCreate
 
 class EstoqueRepository:
-    
-    # Query com JOIN para buscar o nome do produto
+     
+     # Query com join para buscar o nome do produto
     QUERY_GET_ALL = """
         SELECT 
             e.id, e.quantidade, e.data_atualizacao, e.produto_id,
@@ -12,7 +12,7 @@ class EstoqueRepository:
         INNER JOIN produto p ON e.produto_id = p.id
     """
     
-    # Query com JOIN para buscar um
+    # Query com join para buscar um produto
     QUERY_GET_BY_ID = """
         SELECT 
             e.id, e.quantidade, e.data_atualizacao, e.produto_id,
@@ -23,11 +23,10 @@ class EstoqueRepository:
     """
     
     # Query simples para criar.
-    # Usamos o 'data_atualizacao = CURRENT_TIMESTAMP' que definimos no banco
     QUERY_CREATE = "INSERT INTO estoque (produto_id, quantidade) VALUES (%s, %s) RETURNING id, produto_id, quantidade, data_atualizacao;"
 
     def _map_row_to_out(self, row):
-        # Mapeia o resultado do banco (com 5 colunas)
+        # Mapeia o resultado do banco 
         return {"id": row[0], "quantidade": row[1], "data_atualizacao": row[2], "produto_id": row[3], "produto_name": row[4]}
 
     def get_all(self):
@@ -48,7 +47,4 @@ class EstoqueRepository:
         query = self.QUERY_CREATE % (e.produto_id, e.quantidade)
         row = db.commit(query)
         
-        # Como o 'save' não tem o JOIN, temos que buscar o nome separado ou
-        # simplesmente retornar o ID do produto criado e o nome do produto
-        # Vamos buscar o produto recém-criado com o JOIN
         return self.get_id(row[0])

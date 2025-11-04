@@ -13,7 +13,7 @@ class SupplierRepository:
         for row in results_db:
             results.append({"id": row[0], "name": row[1], "cnpj": row[2], "status": row[3], "company_id": row[4]})
         return results
-
+#
     def get_id(self, id: int):
         db = DataBase()
         query = self.QUERY_GET_BY_ID % id

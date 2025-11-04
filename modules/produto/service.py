@@ -10,9 +10,8 @@ class ProdutoService:
     def get_produto_by_id(self, id: int):
         repository = ProdutoRepository()
         return repository.get_id(id)
-
+#
     def create_produto(self, p: schemas.ProdutoCreate):
-        # Aqui você poderia validar se os IDs (type_id, supplier_id, etc) existem
         repository = ProdutoRepository()
         return repository.save(p)
     

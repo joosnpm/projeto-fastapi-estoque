@@ -7,7 +7,7 @@ class EstoqueBase(BaseModel):
 
 class EstoqueCreate(EstoqueBase):
     pass
-
+#
 class EstoqueOut(BaseModel):
     id: int
     quantidade: int

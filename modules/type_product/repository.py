@@ -21,7 +21,7 @@ class TypeProductRepository:
         if row:
             return {"id": row[0], "name": row[1], "cod": row[2], "company_id": row[3]}
         return None
-
+#
     def save(self, tp: TypeProductCreate):
         db = DataBase()
         query = self.QUERY_CREATE % (f"'{tp.name}'", f"'{tp.cod}'", tp.company_id)

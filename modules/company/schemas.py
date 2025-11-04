@@ -10,6 +10,6 @@ class Company(BaseModel):
     name: str
     cnpj: str
     status: str
-    
+    #
     class Config:
         from_attributes = True

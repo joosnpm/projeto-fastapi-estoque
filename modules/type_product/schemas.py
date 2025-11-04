@@ -10,6 +10,6 @@ class TypeProductCreate(TypeProductBase):
 
 class TypeProduct(TypeProductBase):
     id: int
-
+#
     class Config:
         from_attributes = True

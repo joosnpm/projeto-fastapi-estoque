@@ -33,7 +33,7 @@ class CompanyRepository:
         result = db.commit(query)
     
         return self._map_row_to_company(result)
-
+#
     def get_id(self, id: int):
         db = DataBase()
         query = self.QUERY_COMPANY_ID % id
